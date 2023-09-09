@@ -1,0 +1,16 @@
+F:\Projetos\C#\capsulajs\bin\Debug\net7.0-windows\capsulajs.exe
+F:\Projetos\C#\capsulajs\bin\Debug\net7.0-windows\capsulajs.deps.json
+F:\Projetos\C#\capsulajs\bin\Debug\net7.0-windows\capsulajs.runtimeconfig.json
+F:\Projetos\C#\capsulajs\bin\Debug\net7.0-windows\capsulajs.dll
+F:\Projetos\C#\capsulajs\bin\Debug\net7.0-windows\capsulajs.pdb
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\capsulajs.Form1.resources
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\capsulajs.csproj.GenerateResource.cache
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\capsulajs.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\capsulajs.AssemblyInfoInputs.cache
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\capsulajs.AssemblyInfo.cs
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\capsulajs.csproj.CoreCompileInputs.cache
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\capsulajs.dll
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\refint\capsulajs.dll
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\capsulajs.pdb
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\capsulajs.genruntimeconfig.cache
+F:\Projetos\C#\capsulajs\obj\Debug\net7.0-windows\ref\capsulajs.dll

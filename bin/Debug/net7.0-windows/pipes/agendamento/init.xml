@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<G_ObfItem xmlns:GIO="Attar">
+  <name>Sistema de Agendamento</name>
+  <desc>Pipeline principal do Sistema de Agendamento para o Frangolândia.</desc>
+  <include>./includes.txt</include>
+  <!-- Pasta de saída -->
+  <dir>./saida</dir>
+  <!-- Nome de saída -->
+  <outname>teste.min.js</outname>
+  <nocomments>true</nocomments>
+  <!-- Eliminar quebra de linha -->
+  <nolinebreak>true</nolinebreak>
+  <!-- Experimental -->
+  <obfuscate>true</obfuscate>
+</G_ObfItem>

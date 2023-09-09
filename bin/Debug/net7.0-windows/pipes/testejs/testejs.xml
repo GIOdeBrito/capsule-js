@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<G_ObfItem xmlns:GIO="Attar">
+  <name>Pipeline Teste JS</name>
+  <desc>Pipeline de teste para testar funcionalidades do programa.</desc>
+  <include>includes.txt</include>
+  <!-- Cabeçalho a ser incluído no arquivo final -->
+  <header>header.txt</header>
+  <!-- Pasta de saída -->
+  <dir>src/saida</dir>
+  <!-- Nome de saída -->
+  <outname>teste.min.js</outname>
+  <nocomments>true</nocomments>
+  <!-- Eliminar quebra de linha -->
+  <nolinebreak>true</nolinebreak>
+  <!-- Experimental -->
+  <obfuscate>true</obfuscate>
+</G_ObfItem>
