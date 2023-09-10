@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace capsulajs
@@ -12,6 +9,11 @@ namespace capsulajs
 		public static MainConfig Config;
 		
 		static FileG ()
+		{
+			ReadMainFile();
+		}
+
+		public static void ReadMainFile ()
 		{
 			Config = (MainConfig) ReadXML("./configura/main.xml", typeof(MainConfig));
 		}
@@ -59,6 +61,29 @@ namespace capsulajs
 
 			return dados;
 		}
+
+		public static void WriteXML (string path, object obj)
+		{
+			try
+			{
+				XmlSerializer xml = new XmlSerializer(obj.GetType());
+				var namespaces = new XmlSerializerNamespaces();
+				namespaces.Add("GIO","Attar");
+
+				using(TextWriter sw = new StreamWriter(path))
+				{
+					xml.Serialize(sw, obj, namespaces);
+				}
+			}
+			catch(IOException ex)
+			{
+				Console.WriteLine($"Erro ao escrever arquivo: {path}\n{ex.Message}");
+			}
+			catch(InvalidOperationException ex)
+			{
+				Console.WriteLine($"Erro ao escrever a classe XML: {path}\n{ex.Message}");
+			}
+		}
 	}
 
 	[XmlRoot("G_Main")]
@@ -69,7 +94,7 @@ namespace capsulajs
 		[XmlElement("LastOpenedFile")]
 		public string lastFile;
 		[XmlElement("Debug")]
-		public Boolean debugMode;
+		public bool debugMode;
 	}
 
 	[XmlRoot("G_ObfItem")]
@@ -90,8 +115,8 @@ namespace capsulajs
 		[XmlElement("nocomments")]
 		public bool noComments;
 		[XmlElement("nolinebreak")]
-		public string hasLinebreaks;
+		public bool hasLinebreaks;
 		[XmlElement("obfuscate")]
-		public string obfuscate;
+		public bool obfuscate;
 	}
 }

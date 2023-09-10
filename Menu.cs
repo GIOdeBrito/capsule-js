@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,12 +41,25 @@ namespace capsulajs
 				m_pre.DisableScene();
 				m_capsula.EnableScene();
 
+				// Atualiza a configuração da aplicação
+				FileG.WriteXML("configura/main.xml",new MainConfig()
+				{
+					name = FileG.Config.name,
+					lastFile = path,
+					debugMode = FileG.Config.debugMode,
+				});
+
 				MenuCapsule(path);
 			};
 
 			loadLast.Click += (s, e) =>
 			{
-				Console.WriteLine(FileG.Config.lastFile);
+				if(String.IsNullOrEmpty(FileG.Config.lastFile))
+				{
+					return;
+				}
+				
+				MenuCapsule(FileG.Config.lastFile);
 			};
 		}
 
@@ -57,6 +71,7 @@ namespace capsulajs
 
 			Button exec = Elements.CreateButton("Executar",new Point(10,10),new Size(120,50));
 			Button edit = Elements.CreateButton("Editar dados",new Point(10,70),new Size(120,50));
+			Button quit = Elements.CreateButton("Sair",new Point(10,130),new Size(120,50));
 			
 			// Nome do pipeline
 			Label linename = Elements.CreateLabel(item.name,new Point(screensz.Item1 - 422, 10),new Size(400,40));
@@ -77,22 +92,19 @@ namespace capsulajs
 
 			CheckBox linebreaks = Elements.CreateCheckbox("Permite quebra de linha",new Point(screensz.Item1 - 222, 340),new Size(200,40));
 
+			linebreaks.CheckState = item.hasLinebreaks ? CheckState.Unchecked : CheckState.Checked;
+
 			m_capsula.AddToScene(exec);
 			m_capsula.AddToScene(edit);
+			m_capsula.AddToScene(quit);
 			m_capsula.AddToScene(linename);
 			m_capsula.AddToScene(linedesc);
 			m_capsula.AddToScene(comments);
 			m_capsula.AddToScene(linebreaks);
 
-			/*string[] shatter = xmlpath.Split('\\');
-
-			Console.WriteLine(shatter[shatter.Length - 1]);*/
-
 			// Executa procedimentos do pipeline
 			exec.Click += (s, e) =>
 			{
-				//SceneManager.GetScene("menu_pre").EnableScene();
-				//m_capsula.DestroyScene();
 				Steps.MakeOutFile(item, xmlpath);
 			};
 
@@ -104,44 +116,89 @@ namespace capsulajs
 				m_capsula.DisableScene();
 				SceneManager.GetScene("menu_edit").EnableScene();
 
-				CreateEditMenu(item);
+				CreateEditMenu(item, xmlpath);
+			};
+
+			quit.Click += (s, e) =>
+			{
+				SceneManager.GetScene("menu_pre").EnableScene();
+				m_capsula.DestroyScene();
+				FileG.ReadMainFile();
 			};
 		}
 
-		public static void CreateEditMenu (ObfItem item)
+		public static void CreateEditMenu (ObfItem item, string path)
 		{
 			Scene m_edit = SceneManager.GetScene("menu_edit");
 			Tuple<int,int> screensz = Utis.GetScreenSize();
 
-			Button save = Elements.CreateButton("Salvar dados",new Point(10,10),new Size(120,50));
+			Button save = Elements.CreateButton("Gravar dados",new Point(10,10),new Size(120,50));
 			Button exit = Elements.CreateButton("Voltar",new Point(10,70),new Size(120,50));
 
-			TextBox name = Elements.CreateTextbox(item.name,new Point(screensz.Item1/2 - 200, 50),new Size(400,40));
-			RichTextBox desc = Elements.CreateRichTextbox(item.desc,new Point(screensz.Item1/2 - 200, 80),new Size(400,100));
+			// Nome do item
+			TextBox name = Elements.CreateTextbox(item.name,
+				new Point(screensz.Item1/2 - 200,screensz.Item2/2 - 80),new Size(400,40));
+			// Descrição do item
+			RichTextBox desc = Elements.CreateRichTextbox(item.desc,
+				new Point(screensz.Item1/2 - 200, screensz.Item2/2 - 40),new Size(400,100));
+			// Nome de saída do arquivo
+			TextBox outname = Elements.CreateTextbox(item.outname,
+				new Point(screensz.Item1/2 - 200,screensz.Item2/2 + 100),new Size(400,40));
+			TextBox outdir = Elements.CreateTextbox(item.outdir,
+				new Point(screensz.Item1/2 - 200,screensz.Item2/2 + 140),new Size(400,40));
+			// Permite comentários
+			CheckBox comments = Elements.CreateCheckbox("Permite comentários",
+				new Point(screensz.Item1/2 - 100, 180),new Size(200,40));
+
+			comments.CheckState = item.noComments ? CheckState.Unchecked : CheckState.Checked;
+
+			// Permite quebra de linha 
+			CheckBox linebreaks = Elements.CreateCheckbox("Permite quebra de linha",
+				new Point(screensz.Item1/2 - 100, 210),new Size(200,40));
+
+			linebreaks.CheckState = item.hasLinebreaks ? CheckState.Unchecked : CheckState.Checked;
 
 			m_edit.AddToScene(save);
 			m_edit.AddToScene(exit);
 			m_edit.AddToScene(name);
 			m_edit.AddToScene(desc);
+			m_edit.AddToScene(outname);
+			m_edit.AddToScene(outdir);
+			m_edit.AddToScene(comments);
+			m_edit.AddToScene(linebreaks);
 
-			save.Click += (s, e) =>
-			{
-				/*ObfItem neoitem = new ObfItem()
-				{
-					name = item.name,
-					desc = item.desc,
-					includes = item.includes,
-					outdir = item.outdir,
-					outname = item.outname,
-
-				};*/
-			};
-
-			exit.Click += (s, e) =>
+			Action quitEdit = () =>
 			{
 				SceneManager.GetScene("menu_capsule").EnableScene();
 				SceneManager.RemoveScene(m_edit.GetSceneName());
 			};
+
+			save.Click += (s, e) =>
+			{
+				ObfItem neoitem = new ObfItem()
+				{
+					name = name.Text,
+					desc = desc.Text,
+					includes = item.includes,
+					header = item.header,
+					outdir = outdir.Text,
+					outname = outname.Text,
+					noComments = comments.Checked,
+					hasLinebreaks = linebreaks.Checked,
+					obfuscate = item.obfuscate,
+				};
+
+				FileG.WriteXML(path, neoitem);
+
+				quitEdit();
+			};
+
+			exit.Click += (s, e) =>
+			{
+				quitEdit();
+			};
 		}
+
+
 	}
 }
