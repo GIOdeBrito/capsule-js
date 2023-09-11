@@ -69,6 +69,8 @@ namespace capsulajs
 			ObfItem item = (ObfItem) FileG.ReadXML(xmlpath, typeof(ObfItem));
 			Tuple<int,int> screensz = Utis.GetScreenSize();
 
+			Console.WriteLine(item.ToString());
+
 			Button exec = Elements.CreateButton("Executar",new Point(10,10),new Size(120,50));
 			Button edit = Elements.CreateButton("Editar dados",new Point(10,70),new Size(120,50));
 			Button quit = Elements.CreateButton("Sair",new Point(10,130),new Size(120,50));
@@ -88,11 +90,11 @@ namespace capsulajs
 
 			CheckBox comments = Elements.CreateCheckbox("Permite comentários",new Point(screensz.Item1 - 222, 310),new Size(200,40));
 
-			comments.CheckState = item.noComments ? CheckState.Unchecked : CheckState.Checked;
+			comments.CheckState = item.comments ? CheckState.Checked : CheckState.Unchecked;
 
 			CheckBox linebreaks = Elements.CreateCheckbox("Permite quebra de linha",new Point(screensz.Item1 - 222, 340),new Size(200,40));
 
-			linebreaks.CheckState = item.hasLinebreaks ? CheckState.Unchecked : CheckState.Checked;
+			linebreaks.CheckState = item.linebreaks ? CheckState.Checked : CheckState.Unchecked;
 
 			m_capsula.AddToScene(exec);
 			m_capsula.AddToScene(edit);
@@ -144,19 +146,19 @@ namespace capsulajs
 			// Nome de saída do arquivo
 			TextBox outname = Elements.CreateTextbox(item.outname,
 				new Point(screensz.Item1/2 - 200,screensz.Item2/2 + 100),new Size(400,40));
+			// Diretório de saída
 			TextBox outdir = Elements.CreateTextbox(item.outdir,
 				new Point(screensz.Item1/2 - 200,screensz.Item2/2 + 140),new Size(400,40));
+			
 			// Permite comentários
 			CheckBox comments = Elements.CreateCheckbox("Permite comentários",
 				new Point(screensz.Item1/2 - 100, 180),new Size(200,40));
-
-			comments.CheckState = item.noComments ? CheckState.Unchecked : CheckState.Checked;
-
 			// Permite quebra de linha 
 			CheckBox linebreaks = Elements.CreateCheckbox("Permite quebra de linha",
 				new Point(screensz.Item1/2 - 100, 210),new Size(200,40));
 
-			linebreaks.CheckState = item.hasLinebreaks ? CheckState.Unchecked : CheckState.Checked;
+            comments.CheckState = item.comments ? CheckState.Checked : CheckState.Unchecked;
+            linebreaks.CheckState = item.linebreaks ? CheckState.Checked : CheckState.Unchecked;
 
 			m_edit.AddToScene(save);
 			m_edit.AddToScene(exit);
@@ -183,8 +185,8 @@ namespace capsulajs
 					header = item.header,
 					outdir = outdir.Text,
 					outname = outname.Text,
-					noComments = comments.Checked,
-					hasLinebreaks = linebreaks.Checked,
+					comments = comments.Checked,
+					linebreaks = linebreaks.Checked,
 					obfuscate = item.obfuscate,
 				};
 
@@ -198,7 +200,5 @@ namespace capsulajs
 				quitEdit();
 			};
 		}
-
-
 	}
 }

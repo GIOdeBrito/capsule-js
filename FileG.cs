@@ -113,10 +113,15 @@ namespace capsulajs
 		[XmlElement("outname")]
 		public string outname;
 		[XmlElement("nocomments")]
-		public bool noComments;
+		public bool comments;
 		[XmlElement("nolinebreak")]
-		public bool hasLinebreaks;
+		public bool linebreaks;
 		[XmlElement("obfuscate")]
 		public bool obfuscate;
-	}
+
+        public override string ToString()
+        {
+			return $"{name}\n{desc}\nCOMENTARIO={comments}\nLINEBREAK={linebreaks}";
+        }
+    }
 }

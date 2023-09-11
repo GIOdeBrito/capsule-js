@@ -1,0 +1,8 @@
+../../../../xampp/htdocs/agendamentosite/js/utis.js
+../../../../xampp/htdocs/agendamentosite/js/login.js
+../../../../xampp/htdocs/agendamentosite/js/janela_utis.js
+../../../../xampp/htdocs/agendamentosite/js/janela_aviso.js
+../../../../xampp/htdocs/agendamentosite/js/pagina/agendamento/janela_agendar.js
+../../../../xampp/htdocs/agendamentosite/js/pagina/agendamento/janela_agendar_controles.js
+../../../../xampp/htdocs/agendamentosite/js/pagina/agendamento/agendamento.js
+

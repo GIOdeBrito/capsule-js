@@ -153,7 +153,7 @@ namespace capsulajs
 			foreach(Control elem in _controls)
 			{
 				Elements.DisposeElement(elem);
-				Console.WriteLine(elem.Name + " disposed.");
+				//Console.WriteLine(elem.Name + " disposed.");
 			}
 		}
 	}

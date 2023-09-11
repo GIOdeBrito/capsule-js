@@ -1,0 +1,6 @@
+// ========================================================
+// 	<<< PIPELINE - AGENDAMENTO FRANGOLANDOA >>>
+// 	! Teste de desenvolvimento, não esquecer de rodar o 
+//	script no obfuscatorjs !
+// ========================================================
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<G_ObfItem xmlns:GIO="Attar">
+  <name>Agendamento Frangolandia</name>
+  <desc>Pipeline para sistema de agendamento.</desc>
+  <include>includes.txt</include>
+  <header>header.txt</header>
+  <dir>../../../../xampp/htdocs/agendamentosite/js</dir>
+  <outname>min.js</outname>
+  <nocomments>true</nocomments>
+  <nolinebreak>true</nolinebreak>
+  <obfuscate>true</obfuscate>
+</G_ObfItem>

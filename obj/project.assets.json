@@ -8,26 +8,23 @@
     "net7.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Giordano\\.nuget\\packages\\": {},
-    "C:\\Users\\Giordano\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder": {},
+    "C:\\Users\\Administrador\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Projetos\\C#\\capsulajs\\capsulajs.csproj",
+      "projectUniqueName": "E:\\GIORDANO\\capsule-js\\capsulajs.csproj",
       "projectName": "capsulajs",
-      "projectPath": "F:\\Projetos\\C#\\capsulajs\\capsulajs.csproj",
-      "packagesPath": "C:\\Users\\Giordano\\.nuget\\packages\\",
-      "outputPath": "F:\\Projetos\\C#\\capsulajs\\obj\\",
+      "projectPath": "E:\\GIORDANO\\capsule-js\\capsulajs.csproj",
+      "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
+      "outputPath": "E:\\GIORDANO\\capsule-js\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Users\\Giordano\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Giordano\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Users\\Giordano\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config",
+        "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

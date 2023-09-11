@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace capsulajs
@@ -18,36 +19,39 @@ namespace capsulajs
 			}
 			
 			// Pega os arquivos do includes
-			string[] files = SelectFiles(realpath+item.includes);
+			string[] files = SelectFiles(realpath, item.includes);
 			// Lê o conteúdo dos arquivos e os joga nesta string
 			string strFinal = ReadFiles(files, realpath);
 			
-			if(item.noComments)
+			if(!item.comments)
 			{
 				strFinal = RemoveComments(strFinal);
 			}
 
-			if(item.header != string.Empty)
+			if(!String.IsNullOrEmpty(item.header))
 			{
 				strFinal = ReadHeader(realpath+item.header) + strFinal;
 			}
 
-			// Caminho até o arquivo que será gravado no disco
-			string finalDir = realpath + item.outdir + "/" + item.outname;
-
-			SaveToDisk(finalDir, strFinal);
+			SaveToDisk(realpath, item.outdir, item.outname, strFinal);
 		}
 
-		public static string[] SelectFiles (string path)
+		public static string[] SelectFiles (string path, string arqs)
 		{
 			List<string> files = new List<string>();
 
-			using(StreamReader reader = new StreamReader(path))
+			using(StreamReader reader = new StreamReader(path + arqs))
 			{
 				string line = string.Empty;
 				while((line = reader.ReadLine()) != null)
 				{
-					files.Add(line);
+					// Se a linha for vazia, pula para a próxima
+					if(String.IsNullOrEmpty(line))
+					{
+						continue;
+					}
+
+                    files.Add(line);
 				}
 			}
 
@@ -58,10 +62,20 @@ namespace capsulajs
 		{
 			string final = string.Empty;
 
-			foreach(string file in files)
+            foreach (string file in files)
 			{
-				string file_path = path+file;
-				if(File.Exists(path+file))
+				string file_path = file;
+
+                /* Verifica se o primeiro caractere da string 
+				é uma letra. Se for, usa o caminho completo, do
+				contrário usa o caminho relativo até o arquivo */
+                if(!Char.IsLetter(file[0]))
+                {
+					file_path = path+file;
+					//Console.WriteLine("Não é absoluto.");
+                }
+
+                if(File.Exists(file_path))
 				{
 					string content = $"// --------------------------------\n";
 					content += $"//\tARQUIVO: {file}";
@@ -84,10 +98,22 @@ namespace capsulajs
 			return "";
 		}
 
-		private static void SaveToDisk (string dir, string content)
+		private static void SaveToDisk (string realdir, string dir, string name, string content)
 		{
-			File.WriteAllText(dir, content);
-			Console.WriteLine(dir);
+			// Caminho até o arquivo que será gravado no disco
+			string finalDir = dir;
+
+			// Se não for caminho absoluto
+            if(!Char.IsLetter(dir[0]))
+            {
+                finalDir = realdir + "/" + dir;
+            }
+
+			// Adiciona o nome do arquivo no final
+			finalDir += "/" + name;
+
+            File.WriteAllText(finalDir, content);
+			Console.WriteLine(finalDir);
 		}
 
 		static string RemoveComments (string str)
